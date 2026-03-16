@@ -1,9 +1,0 @@
-{
-  "scenario_id": "policy_refund_v1",
-  "display_name": "Policy Refund Q&A",
-  "dataset_path": "data/scenarios/policy_refund_v1/documents",
-  "primary_query": "What is the refund policy for annual subscriptions?",
-  "fallback_queries": [],
-  "run_mode_default": "run2",
-  "demo_label": "Primary Scenario - Policy Q&A"
-}
