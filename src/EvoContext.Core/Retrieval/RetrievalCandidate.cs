@@ -8,7 +8,10 @@ public sealed record RetrievalCandidate(
     string DocumentId,
     string ChunkId,
     int ChunkIndex,
-    string ChunkText)
+    string ChunkText,
+    string? DocumentTitle = null,
+    string? Section = null,
+    string? QueryText = null)
 {
     public int ChunkCharLength => ChunkText.Length;
 }

@@ -7,7 +7,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using EvoContext.Core.Documents;
 using EvoContext.Core.Embeddings;
+using EvoContext.Core.Text;
 using EvoContext.Core.VectorStore;
+using EvoContext.Infrastructure.Models;
 using Grpc.Core;
 using Qdrant.Client;
 using Qdrant.Client.Grpc;
@@ -137,18 +139,28 @@ public sealed class QdrantIndexService : IVectorIndex
             var vector = vectors[i];
             var pointId = CreatePointId(chunk.ChunkId);
 
-            points.Add(new PointStruct
+            var point = new PointStruct
             {
                 Id = new PointId { Uuid = pointId.ToString("D") },
-                Vectors = vector.ToArray(),
-                Payload =
-                {
-                    ["doc_id"] = chunk.DocumentId,
-                    ["chunk_id"] = chunk.ChunkId,
-                    ["chunk_index"] = chunk.ChunkIndex,
-                    ["text"] = chunk.Text
-                }
-            });
+                Vectors = vector.ToArray()
+            };
+
+            point.Payload[QdrantPayloadKeys.DocumentId] = chunk.DocumentId;
+            point.Payload[QdrantPayloadKeys.ChunkId] = chunk.ChunkId;
+            point.Payload[QdrantPayloadKeys.ChunkIndex] = chunk.ChunkIndex;
+            point.Payload[QdrantPayloadKeys.Text] = chunk.Text;
+
+            if (chunk.DocumentTitle.HasValue())
+            {
+                point.Payload[QdrantPayloadKeys.DocumentTitle] = chunk.DocumentTitle!;
+            }
+
+            if (chunk.Section.HasValue())
+            {
+                point.Payload[QdrantPayloadKeys.Section] = chunk.Section!;
+            }
+
+            points.Add(point);
         }
 
         return _client.UpsertAsync(_collectionName, points, cancellationToken: cancellationToken);

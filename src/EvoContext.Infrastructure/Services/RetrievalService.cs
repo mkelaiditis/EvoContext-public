@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using EvoContext.Core.AdaptiveMemory;
 using EvoContext.Core.Config;
 using EvoContext.Core.Logging;
 using EvoContext.Core.Retrieval;
+using EvoContext.Core.Text;
 using EvoContext.Infrastructure.Models;
 using Qdrant.Client;
 using Qdrant.Client.Grpc;
@@ -141,6 +144,8 @@ public sealed class RetrievalService : IRetriever
             var chunkIndex = GetChunkIndex(point);
             var chunkId = GetChunkIdString(point);
             var chunkText = GetChunkText(point);
+            var documentTitle = GetOptionalPayloadString(point, QdrantPayloadKeys.DocumentTitle);
+            var section = GetOptionalPayloadString(point, QdrantPayloadKeys.Section);
 
             results.Add(new RetrievalCandidate(
                 request.QueryIdentifier,
@@ -150,7 +155,10 @@ public sealed class RetrievalService : IRetriever
                 docId,
                 chunkId,
                 chunkIndex,
-                chunkText));
+                chunkText,
+                documentTitle,
+                section,
+                request.QueryText));
         }
 
         _logger
@@ -168,7 +176,7 @@ public sealed class RetrievalService : IRetriever
 
     private static string GetDocId(ScoredPoint point)
     {
-        if (point.Payload is null || !point.Payload.TryGetValue("doc_id", out var value))
+        if (point.Payload is null || !point.Payload.TryGetValue(QdrantPayloadKeys.DocumentId, out var value))
         {
             throw new InvalidOperationException("Qdrant payload missing doc_id.");
         }
@@ -178,7 +186,7 @@ public sealed class RetrievalService : IRetriever
 
     private static string GetChunkIdString(ScoredPoint point)
     {
-        if (point.Payload is null || !point.Payload.TryGetValue("chunk_id", out var value))
+        if (point.Payload is null || !point.Payload.TryGetValue(QdrantPayloadKeys.ChunkId, out var value))
         {
             return BuildFallbackChunkId(point);
         }
@@ -203,7 +211,7 @@ public sealed class RetrievalService : IRetriever
 
     private static int GetChunkIndex(ScoredPoint point)
     {
-        if (point.Payload is null || !point.Payload.TryGetValue("chunk_index", out var value))
+        if (point.Payload is null || !point.Payload.TryGetValue(QdrantPayloadKeys.ChunkIndex, out var value))
         {
             throw new InvalidOperationException("Qdrant payload missing chunk_index.");
         }
@@ -234,12 +242,12 @@ public sealed class RetrievalService : IRetriever
             throw new InvalidOperationException("Qdrant payload is missing.");
         }
 
-        if (point.Payload.TryGetValue("text", out var value))
+        if (point.Payload.TryGetValue(QdrantPayloadKeys.Text, out var value))
         {
             return value.StringValue ?? string.Empty;
         }
 
-        if (point.Payload.TryGetValue("chunk_text", out value))
+        if (point.Payload.TryGetValue(QdrantPayloadKeys.LegacyChunkText, out value))
         {
             return value.StringValue ?? string.Empty;
         }
@@ -257,5 +265,21 @@ public sealed class RetrievalService : IRetriever
         var documentId = GetDocId(point);
         var chunkIndex = GetChunkIndex(point);
         return BuildChunkId(documentId, chunkIndex);
+    }
+
+    private static string? GetOptionalPayloadString(ScoredPoint point, string key)
+    {
+        if (point.Payload is null || !point.Payload.TryGetValue(key, out var value))
+        {
+            return null;
+        }
+
+        return value.KindCase switch
+        {
+            Value.KindOneofCase.StringValue => value.StringValue.NormalizeOptional(),
+            Value.KindOneofCase.IntegerValue => value.IntegerValue.ToString(CultureInfo.InvariantCulture).NormalizeOptional(),
+            Value.KindOneofCase.DoubleValue => value.DoubleValue.ToString(CultureInfo.InvariantCulture).NormalizeOptional(),
+            _ => null
+        };
     }
 }

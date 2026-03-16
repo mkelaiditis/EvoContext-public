@@ -17,6 +17,7 @@ public sealed class CliCommandExecutor
 {
     private const int ExitOk = 0;
     private const int ExitUsage = 2;
+    private static readonly IRetrievalSummaryRenderer RetrievalSummaryRenderer = new RetrievalSummaryRenderer();
 
     private readonly ILogger _logger;
     private readonly IConfiguration _configuration;
@@ -470,45 +471,12 @@ public sealed class CliCommandExecutor
 
     private static void WriteRunSummary(ILogger logger, RunResult result, int run, int repeat)
     {
-        WriteRetrievalSummary(logger, result, run, repeat, includeAnswer: false);
+        RetrievalSummaryRenderer.WriteSummary(logger, result, run, repeat, includeAnswer: false);
     }
 
     private static void WriteRun3Summary(ILogger logger, RunResult result, int run, int repeat)
     {
-        WriteRetrievalSummary(logger, result, run, repeat, includeAnswer: true);
-    }
-
-    private static void WriteRetrievalSummary(
-        ILogger logger,
-        RunResult result,
-        int run,
-        int repeat,
-        bool includeAnswer)
-    {
-        if (repeat > 1)
-        {
-            logger.Information("Run {Run}/{Repeat}: {RunId}", run, repeat, result.RunId);
-        }
-
-        logger.Information("Retrieved: {Count}", result.RetrievalSummary.RetrievedCandidates.Count);
-        logger.Information("Selected: {Count}", result.RetrievalSummary.SelectedChunks.Count);
-        logger.Information("Selected chunks:");
-        foreach (var chunk in result.RetrievalSummary.SelectedChunks)
-        {
-            logger.Information(
-                "  doc_id={DocId} chunk_id={ChunkId} chunk_index={ChunkIndex}",
-                chunk.DocumentId,
-                chunk.ChunkId,
-                chunk.ChunkIndex);
-        }
-
-        logger.Information("Context chars: {CharCount}", result.RetrievalSummary.ContextPack.CharCount);
-        if (includeAnswer)
-        {
-            logger.Information("Answer: {Answer}", result.Answer ?? string.Empty);
-        }
-
-        logger.Information(string.Empty);
+        RetrievalSummaryRenderer.WriteSummary(logger, result, run, repeat, includeAnswer: true);
     }
 
     private static void WriteRun5Summary(

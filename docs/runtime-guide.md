@@ -123,8 +123,8 @@ The system retrieved the top 10 candidates from Qdrant using the original query.
 
 **2. Context selection**
 ```
-Context selected: chunks=3 context_chars=~1500
-Selected chunk ids: 01:01_0:0, 02:02_0:0, 03:03_0:0
+Context selected: chunks=3 context_chars=1955
+Selected chunk ids: 02:02_0:0, 01:01_0:0, 03:03_0:0
 ```
 3 chunks were selected from the 10 candidates and packed into the context window. The chunk IDs use the format `{doc_id}:{chunk_id}:{chunk_index}`.
 
@@ -138,15 +138,15 @@ The model answered using only the 3 selected chunks. At this point the answer is
 ```
 Evaluation completed: score_total=60
 Missing items: MISSING_ANNUAL_PRORATION_RULE, MISSING_BILLING_ERROR_EXCEPTION,
-               MISSING_PROCESSING_TIMELINE
+               MISSING_PROCESSING_TIMELINE, MISSING_CANCELLATION_PROCEDURE
 ```
-The deterministic evaluator checked the answer against 5 fact rules and 4 hallucination rules. Score 60/100 means 3 required facts are absent from the answer. These are not model judgements — they are pattern matches against the answer text with context anchors to confirm grounding.
+The deterministic evaluator checked the answer against 5 fact rules and 4 hallucination rules. Score 60/100 means 4 required facts are absent from the answer. These are not model judgements — they are pattern matches against the answer text with context anchors to confirm grounding.
 
 **5. Run 2 triggered**
 ```
-Run 2 triggered - score below threshold: expanded_queries=6
+Run 2 triggered — score below threshold: expanded_queries=7
 ```
-Score 60 is below the threshold of 90. The 3 missing fact labels were mapped to 6 targeted expansion queries (2 per missing fact). The system will now retrieve again using this richer query set.
+Score 60 is below the threshold of 90. The 4 missing fact labels were mapped to 7 targeted expansion queries. The system will now retrieve again using this richer query set.
 
 **6. Run 2 retrieval**
 ```
@@ -170,10 +170,12 @@ The expanded context surfaced the missing clauses. The model now has evidence fo
     * Annual subscription proration rule
     * Billing error refund exception
     * Refund processing timeline
+    * Cancellation procedure
 
   Run 1 answer: [wrapped answer]
-    Present:  14-day cooling-off window, Cancellation procedure
-    Missing:  Annual subscription proration rule, Billing error refund exception, ...
+    Present:  14-day cooling-off window
+    Missing:  Annual subscription proration rule, Billing error refund exception,
+              Refund processing timeline, Cancellation procedure
 
   RUN 2 RESULT
   Score: 90
@@ -181,10 +183,12 @@ The expanded context surfaced the missing clauses. The model now has evidence fo
     + Annual subscription proration rule
     + Billing error refund exception
     + Refund processing timeline
-  Still missing: Cancellation procedure
+  Still missing:
+    * Cancellation procedure
 
   Run 2 answer: [wrapped answer]
-    Present:  14-day cooling-off window, Annual subscription proration rule, ...
+    Present:  14-day cooling-off window, Annual subscription proration rule,
+              Billing error refund exception, Refund processing timeline
     Missing:  Cancellation procedure
 
   Score improvement: +30
@@ -195,7 +199,7 @@ The expanded context surfaced the missing clauses. The model now has evidence fo
 |---|---|
 | **Missing items** (Run 1) | Required facts the evaluator found absent from the Run 1 answer |
 | **Recovered items** (Run 2) | Facts that were missing in Run 1 and present in Run 2 — direct evidence of adaptive improvement |
-| **Still missing** | Facts not recovered even after Run 2 — in this case, the cancellation procedure requires a very specific account-portal phrasing |
+| **Still missing** | Facts not recovered even after Run 2 — the cancellation procedure requires a specific account-portal phrasing not present in the retrieved context |
 | **Score improvement** | Numeric delta. +30 here means the adaptive pass materially improved completeness |
 
 ---
@@ -347,10 +351,10 @@ Replay reads a stored trace from disk and re-renders the full demo output. It do
 ```bash
 mkdir -p artifacts/traces/policy_refund_v1 artifacts/traces/runbook_502_v1
 
-cp docs/samples/policy_refund_v1_20260314T130600Z_2ae2.json \
+cp docs/samples/policy_refund_v1_20260316T215650Z_c39f.json \
    artifacts/traces/policy_refund_v1/
 
-cp docs/samples/runbook_502_v1_20260316T103517Z_54ca.json \
+cp docs/samples/runbook_502_v1_20260316T215710Z_a40c.json \
    artifacts/traces/runbook_502_v1/
 ```
 
@@ -358,10 +362,10 @@ cp docs/samples/runbook_502_v1_20260316T103517Z_54ca.json \
 
 ```bash
 dotnet run --project src/EvoContext.Demo -- \
-  replay --run-id policy_refund_v1_20260314T130600Z_2ae2
+  replay --run-id policy_refund_v1_20260316T215650Z_c39f
 
 dotnet run --project src/EvoContext.Demo -- \
-  replay --run-id runbook_502_v1_20260316T103517Z_54ca
+  replay --run-id runbook_502_v1_20260316T215710Z_a40c
 ```
 
 The output is identical to a live run. The same summary box, the same scores, the same recovered/missing items.

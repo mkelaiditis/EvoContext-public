@@ -1,10 +1,10 @@
 {
-  "run_id": "runbook_502_v1_20260316T103517Z_54ca",
+  "run_id": "runbook_502_v1_20260316T215710Z_a40c",
   "scenario_id": "runbook_502_v1",
   "dataset_id": "runbook_502_v1",
   "query": "The service returns 502. What do I do?",
   "run_mode": "run2",
-  "timestamp_utc": "2026-03-16T10:35:23.9592529\u002B00:00",
+  "timestamp_utc": "2026-03-16T21:57:13.2200394\u002B00:00",
   "retrieval_queries": [
     "The service returns 502. What do I do?",
     "How do I check if a recent deployment caused a 502 error?",
@@ -32,7 +32,7 @@
     }
   ],
   "context_size_chars": 1770,
-  "answer": "1. Check the health status of each dependent service using the platform monitoring dashboard or command-line tools.\n2. If any dependency is unhealthy, restart the unhealthy dependency.\n3. After restarting, check the health status of each dependency again.\n4. Retry the primary service to see if the 502 error persists.\n5. If all dependencies are healthy and the 502 error continues, locate and review the most recent log entries for the affected service to identify any startup or runtime errors.\n6. If the issue is still unresolved, open the deployment management portal and review the deployment changelog for the affected service.\n7. Inspect the deployment history to identify any recent changes that coincide with the onset of the 502 error.\n8. If a recent deployment is identified as a probable cause, initiate a rollback to the previous stable version using the deployment management tool.\n9. Confirm that the rollback completes successfully.\n10. Re-check the service health after the rollback.",
+  "answer": "1. Check the health status of each dependent service using the platform monitoring dashboard or command-line tools.\n2. If any dependency is unhealthy, restart the unhealthy dependency.\n3. After restarting, check the health status of each dependency again.\n4. Retry the primary service to see if the 502 error persists.\n5. If all dependencies are healthy and the 502 error continues, locate and review the most recent log entries for the affected service to identify any startup or runtime errors.\n6. If service degradation is suspected, open the deployment management portal and review the deployment changelog for the affected service.\n7. Inspect the deployment history for any recent changes that coincide with the onset of the 502 error.\n8. If a recent deployment is identified as the probable cause, initiate a rollback to the previous stable version using the deployment management tool.\n9. Confirm the rollback completes successfully and re-check the service health.",
   "score_total": 90,
   "query_suggestions": [],
   "score_run1": 54,

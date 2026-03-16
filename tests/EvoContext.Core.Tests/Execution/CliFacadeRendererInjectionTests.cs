@@ -7,6 +7,8 @@ using EvoContext.Core.Runs;
 using EvoContext.Core.Tracing;
 using Microsoft.Extensions.Configuration;
 using Serilog;
+using Serilog.Core;
+using Serilog.Events;
 
 namespace EvoContext.Core.Tests.Execution;
 
@@ -156,6 +158,95 @@ public sealed class CliFacadeRendererInjectionTests
         }
     }
 
+    [Fact]
+    public void RetrievalSummaryRenderer_UsesExplainabilityFriendlyFormatting()
+    {
+        var sink = new CollectingSink();
+        var logger = new LoggerConfiguration().WriteTo.Sink(sink).CreateLogger();
+        var renderer = new RetrievalSummaryRenderer();
+
+        var candidate = new RetrievalCandidate(
+            "q_run2",
+            1,
+            0.92f,
+            0.92f,
+            "01",
+            "01_0",
+            0,
+            "chunk text",
+            "Refund Policy",
+            "Cooling-Off Window");
+
+        var runResult = new RunResult(
+            "run-id",
+            new RunRequest("policy_refund_v1", "What is the refund policy?", RunMode.Run1SimilarityOnly),
+            new RetrievalSummary(
+                new[] { candidate },
+                new[] { candidate },
+                new EvoContext.Core.Context.ContextPack("chunk text", 10, 1, 2200)),
+            Answer: null,
+            EvaluationResult: null);
+
+        renderer.WriteSummary(logger, runResult, run: 1, repeat: 1, includeAnswer: false);
+
+        Assert.Contains(sink.Messages, message => message.Contains("Retrieved candidates (Qdrant):", StringComparison.Ordinal));
+        Assert.Contains(sink.Messages, message => message.Contains("Document: Refund Policy", StringComparison.Ordinal));
+        Assert.Contains(sink.Messages, message => message.Contains("Section:", StringComparison.Ordinal));
+        Assert.Contains(
+            sink.Messages,
+            message => message.Contains("1. Refund Policy", StringComparison.Ordinal)
+                && message.Contains("doc_id=01", StringComparison.Ordinal)
+                && message.Contains("chunk_id=01_0", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public void RetrievalSummaryRenderer_EmitsRun2Attribution_AndSkipsRun1Attribution()
+    {
+        var sink = new CollectingSink();
+        var logger = new LoggerConfiguration().WriteTo.Sink(sink).CreateLogger();
+        var renderer = new RetrievalSummaryRenderer();
+
+        var run2Candidate = new RetrievalCandidate(
+            "run2_q2",
+            1,
+            0.81f,
+            0.81f,
+            "02",
+            "02_0",
+            0,
+            "chunk text",
+            null,
+            null,
+            null);
+        var run1Candidate = new RetrievalCandidate(
+            "run1_primary",
+            2,
+            0.79f,
+            0.79f,
+            "03",
+            "03_0",
+            0,
+            "chunk text",
+            null,
+            null,
+            "base query text");
+
+        var runResult = new RunResult(
+            "run-id",
+            new RunRequest("policy_refund_v1", "What is the refund policy?", RunMode.Run1SimilarityOnly),
+            new RetrievalSummary(
+                new[] { run2Candidate, run1Candidate },
+                new[] { run2Candidate },
+                new EvoContext.Core.Context.ContextPack("chunk text", 10, 1, 2200)),
+            Answer: null,
+            EvaluationResult: null);
+
+        renderer.WriteSummary(logger, runResult, run: 1, repeat: 1, includeAnswer: false);
+
+        Assert.Contains(sink.Messages, message => message.Contains("Query source: feedback expansion", StringComparison.Ordinal));
+        Assert.DoesNotContain(sink.Messages, message => message.Contains("Matched query: base query text", StringComparison.Ordinal));
+    }
+
     private static void PrepareScenarioFixture(string rootPath, string scenarioId)
     {
         Directory.CreateDirectory(Path.Combine(rootPath, ".specify"));
@@ -234,6 +325,16 @@ public sealed class CliFacadeRendererInjectionTests
         public void OnRunComplete(RunSummary summary)
         {
             RunCompleteCount++;
+        }
+    }
+
+    private sealed class CollectingSink : ILogEventSink
+    {
+        public List<string> Messages { get; } = new();
+
+        public void Emit(LogEvent logEvent)
+        {
+            Messages.Add(logEvent.RenderMessage());
         }
     }
 }

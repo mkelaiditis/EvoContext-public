@@ -131,7 +131,12 @@ public sealed class DocumentIngestionService : IDocumentIngestionService
         int chunkOverlapChars)
     {
         var normalizedText = document.NormalizedText ?? string.Empty;
-        return DocumentChunking.CreateChunks(document.DocId, normalizedText, chunkSizeChars, chunkOverlapChars);
+        return DocumentChunking.CreateChunks(
+            document.DocId,
+            normalizedText,
+            chunkSizeChars,
+            chunkOverlapChars,
+            document.Title);
     }
 
     private static bool IsMarkdownFile(FileInfo file)

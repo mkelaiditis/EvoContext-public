@@ -23,6 +23,11 @@ public sealed class Chunker : IChunker
         }
 
         var normalizedText = TextNormalization.NormalizeLineEndings(document.Content ?? string.Empty);
-        return DocumentChunking.CreateChunks(document.DocumentId, normalizedText, _chunkSizeChars, _chunkOverlapChars);
+        return DocumentChunking.CreateChunks(
+            document.DocumentId,
+            normalizedText,
+            _chunkSizeChars,
+            _chunkOverlapChars,
+            document.Title);
     }
 }
