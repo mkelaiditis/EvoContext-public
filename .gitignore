@@ -1,0 +1,52 @@
+# Build
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userprefs
+
+# Visual Studio
+.vs/
+
+# Rider
+.idea/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+
+# NuGet
+*.nupkg
+packages/
+
+# Test results
+TestResults/
+
+# Coverage
+coverage/
+*.coverage
+*.coveragexml
+
+# Traces
+traces/
+!traces/.gitkeep
+
+# Local config overrides
+appsettings.*.local.json
+
+# Environment files
+.env
+.env*
+
+# VS Code
+.vscode/
+
+# jcodemunch index
+.jcodemunch/

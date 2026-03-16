@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/EvoContext.Core/EvoContext.Core.csproj" />
+    <Project Path="src/EvoContext.Cli/EvoContext.Cli.csproj" />
+    <Project Path="src/EvoContext.Demo/EvoContext.Demo.csproj" />
+    <Project Path="src/EvoContext.Infrastructure/EvoContext.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/validation/">
+    <Project Path="validation/EvoContext.Validation.GateA/EvoContext.Validation.GateA.csproj" />
+    <Project Path="validation/EvoContext.Validation.GateB/EvoContext.Validation.GateB.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/EvoContext.Core.Tests/EvoContext.Core.Tests.csproj" />
+    <Project Path="tests/EvoContext.ManualIntegration.Tests/EvoContext.ManualIntegration.Tests.csproj" />
+  </Folder>
+</Solution>

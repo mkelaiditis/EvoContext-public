@@ -1,0 +1,9 @@
+{
+  "scenario_id": "runbook_502_v1",
+  "display_name": "Runbook 502 Triage",
+  "dataset_path": "data/scenarios/runbook_502_v1/documents",
+  "primary_query": "The service returns 502. What do I do?",
+  "fallback_queries": [],
+  "run_mode_default": "run2",
+  "demo_label": "Secondary Scenario - Runbook 502"
+}

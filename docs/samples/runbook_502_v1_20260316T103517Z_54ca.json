@@ -1,0 +1,63 @@
+{
+  "run_id": "runbook_502_v1_20260316T103517Z_54ca",
+  "scenario_id": "runbook_502_v1",
+  "dataset_id": "runbook_502_v1",
+  "query": "The service returns 502. What do I do?",
+  "run_mode": "run2",
+  "timestamp_utc": "2026-03-16T10:35:23.9592529\u002B00:00",
+  "retrieval_queries": [
+    "The service returns 502. What do I do?",
+    "How do I check if a recent deployment caused a 502 error?",
+    "What is the deployment rollback procedure?"
+  ],
+  "candidate_pool_size": 9,
+  "selected_chunks": [
+    {
+      "document_id": "04",
+      "chunk_id": "04_0",
+      "chunk_index": 0,
+      "chunk_text": "# Troubleshooting 502 Service Errors\n\nWhen the service returns a 502 error, the most common cause is an unavailable or unresponsive dependency. Administrators should begin by checking the health of each dependency before any other corrective action.\n\n## Dependency health check\n\nTo diagnose a 502 error, verify that all dependent services are operating correctly. Check the health status of each dependency using the platform monitoring dashboard or command-line tools.\n\nIf a dependency appears unhealthy, restart it first. After it restarts, check the health status of each dependency again before retrying the primary service.\n\nIf all dependencies are healthy and the 502 error persists, proceed with log inspection and configuration validation. Begin by locating the most recent log entries for the affected service to identify any startup or runtime errors.\n"
+    },
+    {
+      "document_id": "03",
+      "chunk_id": "03_0",
+      "chunk_index": 0,
+      "chunk_text": "# Deployment Changelog Review\n\nWhen investigating service degradation, the deployment changelog provides a record of all changes released to a service.\n\n## Inspecting the deployment history\n\nOpen the deployment management portal and locate the changelog for the affected service. Inspect the deployment history to identify any changes released in the recent maintenance window. Each entry includes the deployment identifier, release timestamp, the deploying engineer, and the set of changed components.\n\n## Identifying rollback candidates\n\nA deployment entry that coincides with the onset of degradation is a candidate for investigation. If a recent deployment is identified as the probable cause, initiate a rollback to the previous stable version using the deployment management tool. Specify the rollback version or tag and confirm the rollback completes successfully before re-checking service health.\n"
+    },
+    {
+      "document_id": "06",
+      "chunk_id": "06_0",
+      "chunk_index": 0,
+      "chunk_text": "# Incident Escalation\n\nIf the error persists after all troubleshooting steps, open a P1 incident record in the incident management portal. Assign it to the on-call engineer for the affected service, including the service name, error start time, and a summary of steps already attempted.\n\nEscalate using the incident management portal\u0027s escalation workflow to notify additional stakeholders. Monitor the P1 incident until service restoration is confirmed and the incident is formally closed.\n"
+    }
+  ],
+  "context_size_chars": 1770,
+  "answer": "1. Check the health status of each dependent service using the platform monitoring dashboard or command-line tools.\n2. If any dependency is unhealthy, restart the unhealthy dependency.\n3. After restarting, check the health status of each dependency again.\n4. Retry the primary service to see if the 502 error persists.\n5. If all dependencies are healthy and the 502 error continues, locate and review the most recent log entries for the affected service to identify any startup or runtime errors.\n6. If the issue is still unresolved, open the deployment management portal and review the deployment changelog for the affected service.\n7. Inspect the deployment history to identify any recent changes that coincide with the onset of the 502 error.\n8. If a recent deployment is identified as a probable cause, initiate a rollback to the previous stable version using the deployment management tool.\n9. Confirm that the rollback completes successfully.\n10. Re-check the service health after the rollback.",
+  "score_total": 90,
+  "query_suggestions": [],
+  "score_run1": 54,
+  "score_run2": 90,
+  "score_delta": 36,
+  "memory_updates": [
+    "03_0",
+    "04_0",
+    "06_0"
+  ],
+  "scenario_result": {
+    "present_step_labels": [
+      "STEP_CHECK_UPSTREAM_HEALTH",
+      "STEP_INSPECT_LOGS",
+      "STEP_CHECK_DEPLOYMENT",
+      "STEP_ROLLBACK_DEPLOYMENT"
+    ],
+    "missing_step_labels": [],
+    "order_violation_labels": [],
+    "score_breakdown": {
+      "step_coverage_points": 72,
+      "order_correct_points": 0,
+      "hallucination_penalty": 0
+    }
+  },
+  "detected_evidence_items": [],
+  "evidence_block": ""
+}

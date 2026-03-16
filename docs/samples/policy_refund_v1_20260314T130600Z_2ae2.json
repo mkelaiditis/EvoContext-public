@@ -1,0 +1,98 @@
+{
+  "run_id": "policy_refund_v1_20260314T130600Z_2ae2",
+  "scenario_id": "policy_refund_v1",
+  "dataset_id": "policy_refund_v1",
+  "query": "What is the refund policy for annual subscriptions?",
+  "run_mode": "run2",
+  "timestamp_utc": "2026-03-14T13:06:05.8999604+00:00",
+  "retrieval_queries": [
+    "What is the refund policy for annual subscriptions?",
+    "early termination prorated reimbursement",
+    "service commitment contract year unused service value",
+    "duplicate charge billing error refund",
+    "incorrect charge adjustment refund",
+    "refund processing 5-10 business days",
+    "payment method refund timeline"
+  ],
+  "candidate_pool_size": 14,
+  "selected_chunks": [
+    {
+      "document_id": "02",
+      "chunk_id": "02_0",
+      "chunk_index": 0,
+      "chunk_text": "# Refund Policy \u2013 General Terms\n\nThis document states the standard refund policy for annual and monthly subscription purchases made through official channels.\n\n## Cooling-off period\n\nThe 14-day cooling-off period begins on the original purchase date. Within the cooling-off window, customers are entitled to a full refund within 14 days of the original purchase, provided the service has not been substantially used during that time.\n\n## Refund eligibility\n\nOnce the 14-day cooling-off period has passed, annual subscription fees are non-refundable. Annual subscription customers retain access to the service until the end of the paid billing period.\n\n## Scope\n\nThis policy covers standard subscription purchases made through official service channels.\n"
+    },
+    {
+      "document_id": "05",
+      "chunk_id": "05_0",
+      "chunk_index": 0,
+      "chunk_text": "# Charge Disputes and Billing Corrections\n\nThis document covers how billing errors and incorrect charges are identified and corrected for subscription accounts. Billing correction requests are handled separately from standard subscription policy.\n\n## Billing errors\n\nWhen duplicate charges or billing errors occur, the incorrect charge will be reviewed and a refund due to error will be issued once verified. The billing team investigates duplicate charges and incorrect charge adjustments before approving corrections.\n\n## Processing timeline\n\nApproved corrections are processed within 5-10 business days after internal verification. The refund timeline depends on the payment method processing time and the policies of the customer's financial institution. Processing applies to verified billing error cases only.\n"
+    },
+    {
+      "document_id": "06",
+      "chunk_id": "06_0",
+      "chunk_index": 0,
+      "chunk_text": "# Service Commitment and Early Termination\n\nTwelve-month service agreements include a fixed commitment period. Customers on a twelve-month subscription plan who discontinue service before completing the commitment period may request early termination of the contract year.\n\n## Prorated reimbursement\n\nWhen an early termination request for a twelve-month contract is approved, the unused service value for the remaining contract period is eligible for prorated reimbursement. The prorated amount is calculated based on unused months within the service commitment term and the contract year termination date.\n\n## Review process\n\nTermination requests are reviewed individually by the billing team. Prorated reimbursement is issued following verification of the contract year termination request.\n"
+    }
+  ],
+  "context_size_chars": 1571,
+  "answer": "A. Summary  \nAnnual subscriptions are eligible for a full refund within a 14-day cooling-off period from the original purchase date, provided the service has not been substantially used. After this period, annual subscription fees are generally non-refundable, but customers retain access to the service until the end of the paid billing period. Exceptions apply in cases of billing errors and approved early termination requests.\n\nB. Eligibility Rules  \n- Full refund available within 14 days of original purchase if the service has not been substantially used.  \n- After the 14-day cooling-off period, annual subscription fees are non-refundable.  \n- Customers retain access to the service for the remainder of the paid billing period after the cooling-off period.\n\nC. Exceptions  \n- Verified billing errors or duplicate charges are eligible for a refund after review and approval.  \n- Approved early termination requests for twelve-month contracts may qualify for prorated reimbursement (see Section E).\n\nD. Timeline and Process  \n- Refunds for billing corrections are processed within 5-10 business days after internal verification.  \n- The refund timeline may vary depending on the payment method and the customer\u2019s financial institution.  \n- Cancellation requests must be submitted through official service channels.\n\nE. Annual Fixed-Term Treatment  \n- When an early termination request for a twelve-month contract (annual subscription) is approved, the unused service value for the remaining contract period is eligible for prorated reimbursement.",
+  "score_total": 90,
+  "query_suggestions": [
+    "cancel via portal contact support account ID",
+    "cancellation process required account identifier"
+  ],
+  "score_run1": 60,
+  "score_run2": 90,
+  "score_delta": 30,
+  "memory_updates": [
+    "02_0",
+    "05_0",
+    "06_0"
+  ],
+  "scenario_result": {
+    "present_fact_labels": [
+      "PRESENT_COOLING_OFF_WINDOW",
+      "PRESENT_ANNUAL_PRORATION_RULE",
+      "PRESENT_BILLING_ERROR_EXCEPTION",
+      "PRESENT_PROCESSING_TIMELINE"
+    ],
+    "missing_fact_labels": [
+      "MISSING_CANCELLATION_PROCEDURE"
+    ],
+    "hallucination_flags": [],
+    "score_breakdown": {
+      "completeness_points": 40,
+      "format_points": 10,
+      "hallucination_penalty": 0,
+      "accuracy_cap_applied": false
+    }
+  },
+  "detected_evidence_items": [
+    {
+      "fact_label": "PRESENT_COOLING_OFF_WINDOW",
+      "document_id": "02",
+      "matched_anchor": "14-day cooling-off period",
+      "extracted_snippet": "The 14-day cooling-off period begins on the original purchase date."
+    },
+    {
+      "fact_label": "PRESENT_ANNUAL_PRORATION_RULE",
+      "document_id": "06",
+      "matched_anchor": "prorated reimbursement",
+      "extracted_snippet": "When an early termination request for a twelve-month contract is approved, the unused service value for the remaining contract period is eligible for prorated reimbursement."
+    },
+    {
+      "fact_label": "PRESENT_BILLING_ERROR_EXCEPTION",
+      "document_id": "05",
+      "matched_anchor": "duplicate charges",
+      "extracted_snippet": "When duplicate charges or billing errors occur, the incorrect charge will be reviewed and a refund due to error will be issued once verified."
+    },
+    {
+      "fact_label": "PRESENT_PROCESSING_TIMELINE",
+      "document_id": "05",
+      "matched_anchor": "processed within 5-10 business days",
+      "extracted_snippet": "Approved corrections are processed within 5-10 business days after internal verification."
+    }
+  ],
+  "evidence_block": "\n\nDetected evidence from retrieved context:\n- Document 02 [PRESENT_COOLING_OFF_WINDOW]: \"The 14-day cooling-off period begins on the original purchase date.\"\n- Document 06 [PRESENT_ANNUAL_PRORATION_RULE]: \"When an early termination request for a twelve-month contract is approved, the unused service value for the remaining contract period is eligible for prorated reimbursement.\"\n- Document 05 [PRESENT_BILLING_ERROR_EXCEPTION]: \"When duplicate charges or billing errors occur, the incorrect charge will be reviewed and a refund due to error will be issued once verified.\"\n- Document 05 [PRESENT_PROCESSING_TIMELINE]: \"Approved corrections are processed within 5-10 business days after internal verification.\"\nYou must incorporate all detected evidence items above into your answer. Do not contradict or omit any detected evidence."
+}

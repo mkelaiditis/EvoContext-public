@@ -1,0 +1,28 @@
+{
+  "run_id": "runbook_502_v1_20260316T103517Z_54ca",
+  "scenario_id": "runbook_502_v1",
+  "query": "The service returns 502. What do I do?",
+  "run1": {
+    "answer": "1. Check the health status of each dependent service using the platform monitoring dashboard or command-line tools.\n2. If any dependency is unhealthy, restart the unhealthy dependency.\n3. After restarting, check the health status of each dependency again.\n4. If all dependencies are healthy and the 502 error persists, locate and review the most recent log entries for the affected service to identify any startup or runtime errors.\n5. Validate the service configuration as indicated by the logs.\n6. If the service still does not respond after completing the above steps, confirm the service is not actively processing critical operations.\n7. Stop the service gracefully using the platform management tool.\n8. Wait briefly to allow the operating system to release file handles and ports.\n9. Start the service again using the standard management tool command.\n10. Monitor the logs to confirm the service initializes successfully.\n11. If the error persists after all troubleshooting steps, open a P1 incident record in the incident management portal, assign it to the on-call engineer, and include the service name, error start time, and a summary of steps already attempted.\n12. Escalate the incident using the incident management portal\u0027s escalation workflow to notify additional stakeholders.\n13. Monitor the P1 incident until service restoration is confirmed and the incident is formally closed.",
+    "selected_chunks": [
+      {
+        "document_id": "04",
+        "chunk_id": "04_0",
+        "chunk_index": 0,
+        "chunk_text": "# Troubleshooting 502 Service Errors\n\nWhen the service returns a 502 error, the most common cause is an unavailable or unresponsive dependency. Administrators should begin by checking the health of each dependency before any other corrective action.\n\n## Dependency health check\n\nTo diagnose a 502 error, verify that all dependent services are operating correctly. Check the health status of each dependency using the platform monitoring dashboard or command-line tools.\n\nIf a dependency appears unhealthy, restart it first. After it restarts, check the health status of each dependency again before retrying the primary service.\n\nIf all dependencies are healthy and the 502 error persists, proceed with log inspection and configuration validation. Begin by locating the most recent log entries for the affected service to identify any startup or runtime errors.\n"
+      },
+      {
+        "document_id": "01",
+        "chunk_id": "01_0",
+        "chunk_index": 0,
+        "chunk_text": "# Restarting the Service\n\nWhen other troubleshooting steps have been completed and the service still does not respond, a service restart may be required.\n\n## Recommended restart procedure\n\nConfirm the service is not actively processing critical operations. Once safe, stop the service gracefully using the platform management tool so that in-flight operations complete and resources are released before the process terminates.\n\nAfter stopping the service, wait briefly to allow the operating system to release file handles and ports. Start the service again using the standard management tool command and monitor the logs to confirm initialization completed successfully.\n"
+      },
+      {
+        "document_id": "06",
+        "chunk_id": "06_0",
+        "chunk_index": 0,
+        "chunk_text": "# Incident Escalation\n\nIf the error persists after all troubleshooting steps, open a P1 incident record in the incident management portal. Assign it to the on-call engineer for the affected service, including the service name, error start time, and a summary of steps already attempted.\n\nEscalate using the incident management portal\u0027s escalation workflow to notify additional stakeholders. Monitor the P1 incident until service restoration is confirmed and the incident is formally closed.\n"
+      }
+    ]
+  }
+}

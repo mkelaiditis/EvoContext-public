@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "dataset": "policy_refund_v1",
+  "chunking": {
+    "chunk_size": 1200,
+    "chunk_overlap": 200
+  },
+  "documents": [
+    {
+      "doc_id": "01",
+      "char_length": 1795,
+      "chunk_count": 2
+    },
+    {
+      "doc_id": "02",
+      "char_length": 753,
+      "chunk_count": 1
+    },
+    {
+      "doc_id": "03",
+      "char_length": 1334,
+      "chunk_count": 2
+    },
+    {
+      "doc_id": "04",
+      "char_length": 574,
+      "chunk_count": 1
+    },
+    {
+      "doc_id": "05",
+      "char_length": 816,
+      "chunk_count": 1
+    },
+    {
+      "doc_id": "06",
+      "char_length": 793,
+      "chunk_count": 1
+    },
+    {
+      "doc_id": "07",
+      "char_length": 2936,
+      "chunk_count": 3
+    },
+    {
+      "doc_id": "08",
+      "char_length": 2725,
+      "chunk_count": 3
+    }
+  ],
+  "chunks": [
+    {
+      "doc_id": "01",
+      "chunk_index": 0,
+      "chunk_id": "01_0",
+      "start_char": 0,
+      "end_char": 1200,
+      "text": "# Subscription Plans Overview\n\nThe service provides several subscription options designed to support different usage patterns and billing preferences. Customers may choose between monthly and annual billing models depending on their needs.\n\n## Monthly subscription plans\n\nMonthly subscriptions are billed once per billing cycle and renew automatically unless the customer cancels the subscription before the renewal date. Monthly plans provide flexibility for customers who prefer shorter commitments or who expect their service needs to change frequently.\n\nWhen a monthly subscription is cancelled, access to the service continues until the end of the billing cycle that has already been paid.\n\n## Annual subscription plans\n\nAnnual subscriptions are billed once for a full twelve-month period. Customers who choose annual billing generally receive a discounted price compared with paying the monthly rate for the same period.\n\nAnnual plans are intended for customers who expect to use the service continuously and prefer predictable long-term billing.\n\n## Managing subscription settings\n\nCustomers can manage their subscription plan through the account settings interface. This area allows customers"
+    },
+    {
+      "doc_id": "01",
+      "chunk_index": 1,
+      "chunk_id": "01_1",
+      "start_char": 1000,
+      "end_char": 1795,
+      "text": "ntinuously and prefer predictable long-term billing.\n\n## Managing subscription settings\n\nCustomers can manage their subscription plan through the account settings interface. This area allows customers to view their current plan, check renewal dates, update payment information, or switch between plan types.\n\nPlan changes may take effect immediately or at the next billing cycle depending on the nature of the change.\n\n## Access to service features\n\nAll subscription plans provide access to the core features of the platform. Feature availability is determined by the type of subscription selected, but the underlying service environment remains the same across plans.\n\nAdditional services or optional features may be available as add-ons depending on the configuration selected by the customer."
+    },
+    {
+      "doc_id": "02",
+      "chunk_index": 0,
+      "chunk_id": "02_0",
+      "start_char": 0,
+      "end_char": 753,
+      "text": "# Refund Policy \u2013 General Terms\n\nThis document states the standard refund policy for annual and monthly subscription purchases made through official channels.\n\n## Cooling-off period\n\nThe 14-day cooling-off period begins on the original purchase date. Within the cooling-off window, customers are entitled to a full refund within 14 days of the original purchase, provided the service has not been substantially used during that time.\n\n## Refund eligibility\n\nOnce the 14-day cooling-off period has passed, annual subscription fees are non-refundable. Annual subscription customers retain access to the service until the end of the paid billing period.\n\n## Scope\n\nThis policy covers standard subscription purchases made through official service channels.\n"
+    },
+    {
+      "doc_id": "03",
+      "chunk_index": 0,
+      "chunk_id": "03_0",
+      "start_char": 0,
+      "end_char": 1200,
+      "text": "# Cancellation and Account Closure\n\nCustomers may cancel their subscription at any time through the account management interface.\n\n## Subscription cancellation\n\nCancelling a subscription prevents the service from renewing automatically at the end of the current billing cycle. The cancellation takes effect immediately, but service access continues until the end of the already-paid billing period.\n\nCustomers who cancel their subscription may reactivate their service at any time before the end of the billing period by updating their account settings.\n\n## Account closure\n\nAccount closure is a separate process from subscription cancellation. When an account is permanently closed, access to the service platform is removed and the user\u0027s account credentials are deactivated.\n\nCustomers who wish to close their account permanently should contact customer support.\n\n## Data retention\n\nCertain information related to billing transactions or service usage may be retained for administrative or legal reasons even after an account has been closed. Retained records are maintained in accordance with the company\u0027s internal data retention policies.\n\n## Re-opening an account\n\nIn some cases, previously cl"
+    },
+    {
+      "doc_id": "03",
+      "chunk_index": 1,
+      "chunk_id": "03_1",
+      "start_char": 1000,
+      "end_char": 1334,
+      "text": "easons even after an account has been closed. Retained records are maintained in accordance with the company\u0027s internal data retention policies.\n\n## Re-opening an account\n\nIn some cases, previously closed accounts may be re-opened upon request if the underlying account data has not yet been permanently removed from internal systems."
+    },
+    {
+      "doc_id": "04",
+      "chunk_index": 0,
+      "chunk_id": "04_0",
+      "start_char": 0,
+      "end_char": 574,
+      "text": "# Payment Processing\n\nPayments for subscriptions are processed through authorized payment providers when a purchase is completed.\n\n## Payment authorization\n\nWhen a customer completes a purchase, the payment provider authorizes and captures the transaction using the payment method provided during checkout. A payment confirmation message is sent once the transaction succeeds.\n\n## Refund authorization\n\nIn cases where a refund is approved by the billing or support team, the payment reversal is submitted through the same payment provider used for the original transaction.\n"
+    },
+    {
+      "doc_id": "05",
+      "chunk_index": 0,
+      "chunk_id": "05_0",
+      "start_char": 0,
+      "end_char": 816,
+      "text": "# Charge Disputes and Billing Corrections\n\nThis document covers how billing errors and incorrect charges are identified and corrected for subscription accounts. Billing correction requests are handled separately from standard subscription policy.\n\n## Billing errors\n\nWhen duplicate charges or billing errors occur, the incorrect charge will be reviewed and a refund due to error will be issued once verified. The billing team investigates duplicate charges and incorrect charge adjustments before approving corrections.\n\n## Processing timeline\n\nApproved corrections are processed within 5-10 business days after internal verification. The refund timeline depends on the payment method processing time and the policies of the customer\u0027s financial institution. Processing applies to verified billing error cases only.\n"
+    },
+    {
+      "doc_id": "06",
+      "chunk_index": 0,
+      "chunk_id": "06_0",
+      "start_char": 0,
+      "end_char": 793,
+      "text": "# Service Commitment and Early Termination\n\nTwelve-month service agreements include a fixed commitment period. Customers on a twelve-month subscription plan who discontinue service before completing the commitment period may request early termination of the contract year.\n\n## Prorated reimbursement\n\nWhen an early termination request for a twelve-month contract is approved, the unused service value for the remaining contract period is eligible for prorated reimbursement. The prorated amount is calculated based on unused months within the service commitment term and the contract year termination date.\n\n## Review process\n\nTermination requests are reviewed individually by the billing team. Prorated reimbursement is issued following verification of the contract year termination request.\n"
+    },
+    {
+      "doc_id": "07",
+      "chunk_index": 0,
+      "chunk_id": "07_0",
+      "start_char": 0,
+      "end_char": 1200,
+      "text": "# Veridian Pro Promotional Discounts and Limitations\n\nThis document describes the promotional pricing rules for Veridian Pro and how discounts are applied. It explains the limitations associated with promotional offers and clarifies how promotional pricing interacts with standard terms. The intent is to ensure customers understand the scope and boundaries of temporary pricing incentives.\n\nPromotional offers may include percentage discounts, fixed-amount reductions, or bundled incentives tied to a specific campaign. Each promotion has a defined eligibility window and may be limited to new customers or specific regions. Promotional offers are not guaranteed and may be withdrawn or modified at the discretion of Veridian Software.\n\nPurchases made under promotional pricing are non-refundable. This limitation applies to orders that used a promotional code, discounted rate, or bundled incentive. The promotional terms are provided at the time of purchase and are included in the order confirmation. Customers should review those terms before completing a promotional purchase.\n\nPromotions apply only to the specific product and plan listed in the offer. They do not automatically extend to add-"
+    },
+    {
+      "doc_id": "07",
+      "chunk_index": 1,
+      "chunk_id": "07_1",
+      "start_char": 1000,
+      "end_char": 2200,
+      "text": "ion. Customers should review those terms before completing a promotional purchase.\n\nPromotions apply only to the specific product and plan listed in the offer. They do not automatically extend to add-on services, third-party products, or future plan changes. If a customer upgrades or changes plans, the promotional rate may not transfer to the new plan unless the offer explicitly states otherwise.\n\nPromotional discounts do not alter the standard feature set of Veridian Pro. Customers on a promotional rate receive the same product capabilities as customers on standard pricing. However, promotional rates may have specific usage limits or campaign-specific constraints, which are detailed in the offer.\n\nPromotional pricing typically applies for a defined term and then reverts to the standard rate unless the offer explicitly states otherwise. Customers will see the promotional term and the standard rate in the order confirmation. Veridian Software recommends reviewing these details to avoid surprises when the promotional period ends.\n\nCertain promotions may be limited to specific industries, regions, or customer segments. Eligibility details are stated in the offer and may require verifi"
+    },
+    {
+      "doc_id": "07",
+      "chunk_index": 2,
+      "chunk_id": "07_2",
+      "start_char": 2000,
+      "end_char": 2936,
+      "text": "surprises when the promotional period ends.\n\nCertain promotions may be limited to specific industries, regions, or customer segments. Eligibility details are stated in the offer and may require verification during checkout. If a promotion is applied outside the stated eligibility, Veridian Software may adjust the order to the standard rate and notify the customer of the correction.\n\nVeridian Software may limit promotions to one per customer account. Multiple promotions cannot be combined unless the offer explicitly permits stacking. If more than one promotion is applied in error, the company may adjust the pricing to align with the intended campaign terms.\n\nThis document covers promotional pricing limitations only. It does not describe plan terms, account procedures, or payment processing timelines. For full details on plan structure and standard pricing, customers should consult the product catalog or the customer portal."
+    },
+    {
+      "doc_id": "08",
+      "chunk_index": 0,
+      "chunk_id": "08_0",
+      "start_char": 0,
+      "end_char": 1200,
+      "text": "# Veridian Pro Policy Amendments and Effective Dates\n\nThis document explains how Veridian Software updates policies that govern Veridian Pro. It describes how policy amendments are communicated and how effective dates are applied. The goal is to provide transparency so customers understand when changes take effect and how they are announced.\n\nVeridian Software may update policies from time to time to reflect product changes, regulatory requirements, or operational improvements. When a policy is updated, Veridian Software provides notice through the customer portal, email notifications, or published updates in the product documentation. The notice includes the effective date of the change and a summary of the revision.\n\nPolicy changes apply prospectively, not retroactively. This means that updates affect future activity or future billing periods after the effective date. The terms in place before the effective date continue to govern actions that occurred earlier. This approach ensures that customers are not subject to unexpected changes for past activity.\n\nCustomers are encouraged to review policy updates when they are announced. The policy revision history is maintained in the cus"
+    },
+    {
+      "doc_id": "08",
+      "chunk_index": 1,
+      "chunk_id": "08_1",
+      "start_char": 1000,
+      "end_char": 2200,
+      "text": "that customers are not subject to unexpected changes for past activity.\n\nCustomers are encouraged to review policy updates when they are announced. The policy revision history is maintained in the customer portal so that organizations can track changes over time. Veridian Software also provides a summary of significant amendments to help administrators understand the impact on their organization.\n\nVeridian Software keeps prior versions of policies available for reference to support audits and internal compliance reviews. The archived versions include the effective dates and a brief change summary. This record helps customers understand which terms applied to historical activity and supports internal governance processes.\n\nNotice of policy changes typically includes a summary of key sections affected and the date when the updated terms take effect. Customers should ensure that their account contact information is current so that notices are delivered to the appropriate recipients. If a notice cannot be delivered, the update is still published in the portal with the effective date for reference.\n\nIf a customer has questions about a policy change, they can contact support for clarific"
+    },
+    {
+      "doc_id": "08",
+      "chunk_index": 2,
+      "chunk_id": "08_2",
+      "start_char": 2000,
+      "end_char": 2725,
+      "text": "notice cannot be delivered, the update is still published in the portal with the effective date for reference.\n\nIf a customer has questions about a policy change, they can contact support for clarification. Support can provide guidance on where to find the updated policy and how to interpret the effective date. For complex organizational needs, account managers may assist with clarifying how updates align with specific contracts or usage patterns.\n\nThis document focuses on how policies are amended and how effective dates are applied. It does not introduce new eligibility conditions or account procedures. Customers should consult the relevant policy document for the full terms that apply to their use of Veridian Pro."
+    }
+  ]
+}

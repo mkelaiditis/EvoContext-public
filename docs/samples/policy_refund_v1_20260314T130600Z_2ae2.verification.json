@@ -1,0 +1,28 @@
+{
+  "run_id": "policy_refund_v1_20260314T130600Z_2ae2",
+  "scenario_id": "policy_refund_v1",
+  "query": "What is the refund policy for annual subscriptions?",
+  "run1": {
+    "answer": "A. Summary  \nAnnual subscriptions are eligible for a full refund only within the 14-day cooling-off period, provided the service has not been substantially used. After this period, annual subscription fees are non-refundable, but customers retain access to the service until the end of the paid billing period.\n\nB. Eligibility Rules\n- Full refund is available within 14 days of the original purchase date if the service has not been substantially used.\n- After the 14-day cooling-off period, no refunds are provided for annual subscriptions.\n- Annual subscription customers retain access to the service for the remainder of the paid twelve-month period after cancellation.\n\nC. Exceptions\n- No specific exceptions such as billing errors or special cases are mentioned in the provided context.\n\nD. Timeline and Process\n- Refunds are processed if requested within 14 days of the original purchase date and if the service has not been substantially used.\n- Customers can manage and cancel their subscription through the account settings interface.\n- Upon cancellation after the cooling-off period, access continues until the end of the paid annual billing period, but no refund is issued.\n\nE. Annual Fixed-Term Treatment\n- The context does not mention any prorated reimbursement, unused service value, early termination, or calculated monthly reimbursement for annual subscriptions. No conditional early-termination reimbursement rule is present.",
+    "selected_chunks": [
+      {
+        "document_id": "02",
+        "chunk_id": "02_0",
+        "chunk_index": 0,
+        "chunk_text": "# Refund Policy \u2013 General Terms\n\nThis document states the standard refund policy for annual and monthly subscription purchases made through official channels.\n\n## Cooling-off period\n\nThe 14-day cooling-off period begins on the original purchase date. Within the cooling-off window, customers are entitled to a full refund within 14 days of the original purchase, provided the service has not been substantially used during that time.\n\n## Refund eligibility\n\nOnce the 14-day cooling-off period has passed, annual subscription fees are non-refundable. Annual subscription customers retain access to the service until the end of the paid billing period.\n\n## Scope\n\nThis policy covers standard subscription purchases made through official service channels.\n"
+      },
+      {
+        "document_id": "01",
+        "chunk_id": "01_0",
+        "chunk_index": 0,
+        "chunk_text": "# Subscription Plans Overview\n\nThe service provides several subscription options designed to support different usage patterns and billing preferences. Customers may choose between monthly and annual billing models depending on their needs.\n\n## Monthly subscription plans\n\nMonthly subscriptions are billed once per billing cycle and renew automatically unless the customer cancels the subscription before the renewal date. Monthly plans provide flexibility for customers who prefer shorter commitments or who expect their service needs to change frequently.\n\nWhen a monthly subscription is cancelled, access to the service continues until the end of the billing cycle that has already been paid.\n\n## Annual subscription plans\n\nAnnual subscriptions are billed once for a full twelve-month period. Customers who choose annual billing generally receive a discounted price compared with paying the monthly rate for the same period.\n\nAnnual plans are intended for customers who expect to use the service continuously and prefer predictable long-term billing.\n\n## Managing subscription settings\n\nCustomers can manage their subscription plan through the account settings interface. This area allows customers"
+      },
+      {
+        "document_id": "03",
+        "chunk_id": "03_0",
+        "chunk_index": 0,
+        "chunk_text": "# Cancellation and Account Closure\n\nCustomers may cancel their subscription at any time through the account management interface.\n\n## Subscription cancellation\n\nCancelling a subscription prevents the service from renewing automatically at the end of the current billing cycle. The cancellation takes effect immediately, but service access continues until the end of the already-paid billing period.\n\nCustomers who cancel their subscription may reactivate their service at any time before the end of the billing period by updating their account settings.\n\n## Account closure\n\nAccount closure is a separate process from subscription cancellation. When an account is permanently closed, access to the service platform is removed and the user\u0027s account credentials are deactivated.\n\nCustomers who wish to close their account permanently should contact customer support.\n\n## Data retention\n\nCertain information related to billing transactions or service usage may be retained for administrative or legal reasons even after an account has been closed. Retained records are maintained in accordance with the company\u0027s internal data retention policies.\n\n## Re-opening an account\n\nIn some cases, previously cl"
+      }
+    ]
+  }
+}
