@@ -1,0 +1,17 @@
+{
+  "k": 3,
+  "relevant_documents": [
+    "02",
+    "03",
+    "04"
+  ],
+  "highly_relevant_documents": [
+    "03"
+  ],
+  "label_to_document_map": {
+    "S1": "04",
+    "S2": "02",
+    "S3": "03",
+    "S4": "03"
+  }
+}

@@ -137,16 +137,29 @@ public static class CliArgumentParser
 
     public static string? ParseStatsScenarioId(string[] args)
     {
+        var parsed = ParseStatsArgs(args);
+        return parsed.ScenarioId;
+    }
+
+    public static (string? ScenarioId, int? KOverride) ParseStatsArgs(string[] args)
+    {
         string? scenarioId = null;
+        int? kOverride = null;
 
         for (var i = 0; i < args.Length; i++)
         {
-            if (args[i] == "--scenario" && i + 1 < args.Length)
+            switch (args[i])
             {
-                scenarioId = args[++i];
+                case "--scenario" when i + 1 < args.Length:
+                    scenarioId = args[++i];
+                    break;
+                case "--k" when i + 1 < args.Length && int.TryParse(args[i + 1], out var parsedK):
+                    kOverride = Math.Max(1, parsedK);
+                    i++;
+                    break;
             }
         }
 
-        return scenarioId;
+        return (scenarioId, kOverride);
     }
 }

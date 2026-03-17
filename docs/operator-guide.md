@@ -115,8 +115,8 @@ Sample artifacts for both scenarios are included in `docs/samples/`:
 
 | File | Scenario | Run mode | Score Run 1 | Score Run 2 | Delta |
 |---|---|---|---|---|---|
-| `policy_refund_v1_20260311T151244Z_21b1.json` | Policy refund | run2 | 60 | 60 | 0 |
-| `runbook_502_v1_20260316T103517Z_54ca.json` | Runbook 502 | run2 | 30 | 40 | +10 |
+| `policy_refund_v1_20260316T215650Z_c39f.json` | Policy refund | run2 | 60 | 90 | +30 |
+| `runbook_502_v1_20260316T215710Z_a40c.json` | Runbook 502 | run2 | 54 | 90 | +36 |
 
 To replay a sample, first copy it to the expected artifacts location:
 
@@ -124,11 +124,11 @@ To replay a sample, first copy it to the expected artifacts location:
 
 ```powershell
 # Policy refund
-Copy-Item docs\samples\policy_refund_v1_20260311T151244Z_21b1.json `
+Copy-Item docs\samples\policy_refund_v1_20260316T215650Z_c39f.json `
   -Destination artifacts\traces\policy_refund_v1\ -Force
 
 # Runbook 502
-Copy-Item docs\samples\runbook_502_v1_20260316T103517Z_54ca.json `
+Copy-Item docs\samples\runbook_502_v1_20260316T215710Z_a40c.json `
   -Destination artifacts\traces\runbook_502_v1\ -Force
 ```
 
@@ -136,11 +136,11 @@ Copy-Item docs\samples\runbook_502_v1_20260316T103517Z_54ca.json `
 
 ```bash
 # Policy refund
-cp docs/samples/policy_refund_v1_20260311T151244Z_21b1.json \
+cp docs/samples/policy_refund_v1_20260316T215650Z_c39f.json \
   artifacts/traces/policy_refund_v1/
 
 # Runbook 502
-cp docs/samples/runbook_502_v1_20260316T103517Z_54ca.json \
+cp docs/samples/runbook_502_v1_20260316T215710Z_a40c.json \
   artifacts/traces/runbook_502_v1/
 ```
 
@@ -148,22 +148,49 @@ Then replay using the Demo host for rich output, or the CLI for operator output:
 
 ```bash
 # Policy refund — Demo (rich)
-dotnet run --project src/EvoContext.Demo -- replay --run-id policy_refund_v1_20260311T151244Z_21b1
+dotnet run --project src/EvoContext.Demo -- replay --run-id policy_refund_v1_20260316T215650Z_c39f
 
 # Runbook 502 — Demo (rich)
-dotnet run --project src/EvoContext.Demo -- replay --run-id runbook_502_v1_20260316T103517Z_54ca
+dotnet run --project src/EvoContext.Demo -- replay --run-id runbook_502_v1_20260316T215710Z_a40c
 
 # CLI operator output
-dotnet run --project src/EvoContext.Cli -- replay --run-id runbook_502_v1_20260316T103517Z_54ca
+dotnet run --project src/EvoContext.Cli -- replay --run-id runbook_502_v1_20260316T215710Z_a40c
 ```
 
 ## Step 4 — Aggregate stats
 
 ```bash
-dotnet run --project src/EvoContext.Cli -- stats --scenario <scenario_id>
+# Policy refund
+dotnet run --project src/EvoContext.Cli -- stats --scenario policy_refund_v1
+
+# Runbook 502
+dotnet run --project src/EvoContext.Cli -- stats --scenario runbook_502_v1
+```
+
+To override the default K from the relevance profile:
+
+```bash
+dotnet run --project src/EvoContext.Cli -- stats --scenario policy_refund_v1 --k 5
 ```
 
 Trace artifacts are stored at `artifacts/traces/{scenario_id}/{run_id}.json`.
+
+### Retrieval Diagnostics Output
+
+The `stats` command always emits `retrieval_diagnostics_status` and uses one of three states:
+
+- `available`: includes `retrieval_diagnostics_k`, per-run metrics (`hit_at_k`, `recall_at_k`, `mrr`, `ndcg_at_k`), and delta fields.
+- `unavailable`: includes `retrieval_diagnostics_reason` when profile or retrieval trace inputs are missing or malformed.
+- `not_computable`: includes `retrieval_diagnostics_reason` when inputs are valid but metric math is undefined (for example, zero relevant documents).
+
+Required fields by state:
+
+- `available`: `retrieval_diagnostics_k`, run1/run2 metric fields, and delta fields.
+- `unavailable` and `not_computable`: `retrieval_diagnostics_reason`.
+
+Troubleshooting note for unavailable status:
+
+- If `retrieval_diagnostics_status=unavailable`, verify the scenario has a valid `data/scenarios/{scenario_id}/relevance_profile.json` and that the latest trace artifact includes `retrieval.run1.candidate_documents` and `retrieval.run2.candidate_documents`.
 
 ## Troubleshooting
 

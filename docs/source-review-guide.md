@@ -70,7 +70,7 @@ Both dispatch commands the same way: `args[0]` selects the command, the rest are
 | `run --mode run1` | Single-pass only. No adaptive retry. Useful for baseline comparison. |
 | `replay --run-id` | Reads a trace artifact from disk and re-renders it. No external calls. |
 | `ingest` | Dry-run document load only. No embedding or storage. |
-| `stats` | Aggregate stats across stored trace artifacts for a scenario. |
+| `stats` | Aggregate stats across stored trace artifacts for a scenario and emit retrieval diagnostics status plus Hit@K, Recall@K, MRR, nDCG@K, and run deltas when available. |
 | `config` | Prints all resolved configuration values. Secrets shown as `***`. |
 
 Commands are defined in [src/EvoContext.Cli/Program.cs](src/EvoContext.Cli/Program.cs). Each delegates to a service in `src/EvoContext.Infrastructure/Services/`.
@@ -235,4 +235,4 @@ If you only have time for a quick inspection, read these in order:
 | [src/EvoContext.Infrastructure/Services/Run5Orchestrator.cs](src/EvoContext.Infrastructure/Services/Run5Orchestrator.cs) | The adaptive loop: Run 1 → evaluate → build feedback → trigger Run 2. The orchestration logic is explicit. |
 | [src/EvoContext.Core/Evaluation/Phase4QuerySuggestionMapper.cs](src/EvoContext.Core/Evaluation/Phase4QuerySuggestionMapper.cs) | The feedback-to-query translation. Short file, high signal. |
 | [src/EvoContext.Demo/DemoRunRenderer.cs](src/EvoContext.Demo/DemoRunRenderer.cs) | The output layer. Shows exactly what each trace event produces on screen. |
-| [docs/samples/policy_refund_v1_20260314T130600Z_2ae2.json](docs/samples/policy_refund_v1_20260314T130600Z_2ae2.json) | A real trace artifact. Read `retrieval_queries` (shows expansion), `score_run1` vs `score_run2`, and `detected_evidence_items` (shows evaluator reasoning). |
+| [docs/samples/policy_refund_v1_20260316T215650Z_c39f.json](docs/samples/policy_refund_v1_20260316T215650Z_c39f.json) | A real trace artifact. Read `retrieval_queries` (shows expansion), `score_run1` vs `score_run2`, and `detected_evidence_items` (shows evaluator reasoning). |

@@ -444,7 +444,7 @@ public sealed class Run5Orchestrator
                     for (var i = 0; i < querySet.AllQueries.Count; i++)
                     {
                         var query = querySet.AllQueries[i];
-                        var request = new RetrievalRequest($"run2_q{i + 1}", query, _config.RetrievalN);
+                        var request = new RetrievalRequest(Run2QueryIdentifier.Create(i + 1), query, _config.RetrievalN);
                         var retrievalResults = await _retriever.RetrieveAsync(request, innerCancellationToken).ConfigureAwait(false);
                         candidates.AddRange(retrievalResults);
                     }

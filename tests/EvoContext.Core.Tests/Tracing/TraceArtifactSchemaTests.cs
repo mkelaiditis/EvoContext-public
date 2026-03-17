@@ -42,6 +42,12 @@ public sealed class TraceArtifactSchemaTests
         Assert.True(root.TryGetProperty("scenario_result", out _));
         Assert.True(root.TryGetProperty("detected_evidence_items", out var detectedEvidenceItems));
         Assert.True(root.TryGetProperty("evidence_block", out var evidenceBlock));
+        Assert.True(root.TryGetProperty("retrieval", out var retrieval));
+        Assert.True(retrieval.TryGetProperty("run1", out var retrievalRun1));
+        Assert.True(retrievalRun1.TryGetProperty("candidate_documents", out var retrievalRun1CandidateDocuments));
+        Assert.True(retrievalRun1.TryGetProperty("ranked", out _));
+        Assert.Equal(3, retrievalRun1CandidateDocuments.GetArrayLength());
+        Assert.Equal("02", retrievalRun1CandidateDocuments[0].GetString());
         Assert.Equal("policy_refund_v1", root.GetProperty("dataset_id").GetString());
         Assert.Equal(1, detectedEvidenceItems.GetArrayLength());
         var firstEvidenceItem = detectedEvidenceItems[0];
@@ -77,6 +83,12 @@ public sealed class TraceArtifactSchemaTests
         using var doc = JsonDocument.Parse(json);
 
         var scenarioResult = doc.RootElement.GetProperty("scenario_result");
+        var retrieval = doc.RootElement.GetProperty("retrieval");
+        Assert.True(retrieval.TryGetProperty("run1", out var retrievalRun1));
+        Assert.True(retrievalRun1.TryGetProperty("candidate_documents", out _));
+        Assert.True(retrieval.TryGetProperty("run2", out var retrievalRun2));
+        Assert.True(retrievalRun2.TryGetProperty("candidate_documents", out var retrievalRun2CandidateDocuments));
+        Assert.Equal(3, retrievalRun2CandidateDocuments.GetArrayLength());
         Assert.True(scenarioResult.TryGetProperty("present_step_labels", out _));
         Assert.True(scenarioResult.TryGetProperty("missing_step_labels", out _));
         Assert.True(scenarioResult.TryGetProperty("order_violation_labels", out _));
@@ -153,7 +165,10 @@ public sealed class TraceArtifactSchemaTests
                     "prorated reimbursement",
                     "Customers may receive prorated reimbursement for unused service value.")
             },
-            "\n\nDetected evidence from retrieved context:\n- Document 06 [PRESENT_ANNUAL_PRORATION_RULE]: \"Customers may receive prorated reimbursement for unused service value.\"\nYou must incorporate all detected evidence items above into your answer. Do not contradict or omit any detected evidence.");
+            "\n\nDetected evidence from retrieved context:\n- Document 06 [PRESENT_ANNUAL_PRORATION_RULE]: \"Customers may receive prorated reimbursement for unused service value.\"\nYou must incorporate all detected evidence items above into your answer. Do not contradict or omit any detected evidence.",
+            new TraceArtifactRetrieval(
+                new TraceArtifactRetrievalRun(new[] { "02", "01", "03" }, Ranked: true),
+                new TraceArtifactRetrievalRun(new[] { "02", "06", "05" }, Ranked: true)));
     }
 
     private static TraceArtifact CreateRunbookArtifact()
@@ -184,7 +199,12 @@ public sealed class TraceArtifactSchemaTests
                 },
                 new[] { "STEP_CHECK_LB_LOGS" },
                 new[] { "ORDER_VIOLATION" },
-                new Runbook502ScoreBreakdownPayload(40, 30, 0)));
+                new Runbook502ScoreBreakdownPayload(40, 30, 0)),
+            null,
+            string.Empty,
+            new TraceArtifactRetrieval(
+                new TraceArtifactRetrievalRun(new[] { "04", "02", "03" }, Ranked: true),
+                new TraceArtifactRetrievalRun(new[] { "04", "02", "03" }, Ranked: true)));
     }
 
     private static RunVerificationEvidence CreateVerificationEvidence()

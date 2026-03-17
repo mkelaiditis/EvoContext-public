@@ -27,6 +27,7 @@ public static class TraceArtifactBuilder
 
         var memoryUpdates = BuildMemoryUpdates(run);
         var scenarioResultPayload = BuildScenarioResultPayload(finalEvaluation);
+        var retrieval = BuildRetrievalSnapshot(run);
         var detectedEvidenceItems = (finalResult.DetectedEvidenceItems ?? Array.Empty<EvoContext.Core.Evidence.DetectedEvidenceItem>())
             .Select(item => new TraceArtifactDetectedEvidenceItem(
                 item.FactLabel,
@@ -55,7 +56,34 @@ public static class TraceArtifactBuilder
             memoryUpdates,
                 scenarioResultPayload,
                 detectedEvidenceItems,
-                finalResult.EvidenceBlock ?? string.Empty);
+                finalResult.EvidenceBlock ?? string.Empty,
+                retrieval);
+    }
+
+    private static TraceArtifactRetrieval BuildRetrievalSnapshot(Run5ExecutionRun run)
+    {
+        var run1 = new TraceArtifactRetrievalRun(BuildCandidateDocuments(run.Run1Result), Ranked: true);
+        var run2 = run.Run2Result is null
+            ? null
+            : new TraceArtifactRetrievalRun(BuildCandidateDocuments(run.Run2Result), Ranked: true);
+
+        return new TraceArtifactRetrieval(run1, run2);
+    }
+
+    private static IReadOnlyList<string> BuildCandidateDocuments(RunResult result)
+    {
+        var seen = new HashSet<string>(StringComparer.Ordinal);
+        var documents = new List<string>();
+
+        foreach (var candidate in result.RetrievalSummary.RetrievedCandidates)
+        {
+            if (seen.Add(candidate.DocumentId))
+            {
+                documents.Add(candidate.DocumentId);
+            }
+        }
+
+        return documents;
     }
 
     public static RunVerificationEvidence BuildRunVerificationEvidence(

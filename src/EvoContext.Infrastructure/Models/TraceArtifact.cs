@@ -22,7 +22,16 @@ public sealed record TraceArtifact(
     [property: JsonPropertyName("memory_updates")] IReadOnlyList<string> MemoryUpdates,
     [property: JsonPropertyName("scenario_result")] object ScenarioResult,
     [property: JsonPropertyName("detected_evidence_items")] IReadOnlyList<TraceArtifactDetectedEvidenceItem>? DetectedEvidenceItems = null,
-    [property: JsonPropertyName("evidence_block")] string EvidenceBlock = "");
+    [property: JsonPropertyName("evidence_block")] string EvidenceBlock = "",
+    [property: JsonPropertyName("retrieval")] TraceArtifactRetrieval? Retrieval = null);
+
+public sealed record TraceArtifactRetrieval(
+    [property: JsonPropertyName("run1")] TraceArtifactRetrievalRun Run1,
+    [property: JsonPropertyName("run2")] TraceArtifactRetrievalRun? Run2 = null);
+
+public sealed record TraceArtifactRetrievalRun(
+    [property: JsonPropertyName("candidate_documents")] IReadOnlyList<string> CandidateDocuments,
+    [property: JsonPropertyName("ranked")] bool Ranked = true);
 
 public sealed record TraceArtifactSelectedChunk(
     [property: JsonPropertyName("document_id")] string DocumentId,

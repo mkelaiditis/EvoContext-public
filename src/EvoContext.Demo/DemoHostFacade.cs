@@ -191,7 +191,7 @@ public sealed class DemoHostFacade
 
     public int Stats(string[] args)
     {
-        var scenarioId = CliArgumentParser.ParseStatsScenarioId(args);
+        var (scenarioId, kOverride) = CliArgumentParser.ParseStatsArgs(args);
         if (string.IsNullOrWhiteSpace(scenarioId))
         {
             _logger.Error("stats requires --scenario <id>.");
@@ -199,7 +199,7 @@ public sealed class DemoHostFacade
         }
 
         var aggregator = new ScenarioStatsAggregator(_logger);
-        if (!aggregator.TryCompute(scenarioId, out var stats) || stats is null)
+        if (!aggregator.TryCompute(scenarioId, out var stats, kOverride) || stats is null)
         {
             return 2;
         }
@@ -212,6 +212,36 @@ public sealed class DemoHostFacade
         screenLogger.Information("average_score_delta={AverageDelta}", stats.AverageScoreDelta);
         screenLogger.Information("best_score={BestScore}", stats.BestScore);
         screenLogger.Information("worst_score={WorstScore}", stats.WorstScore);
+        screenLogger.Information("retrieval_diagnostics_status={Status}", stats.RetrievalDiagnostics.Status);
+
+        if (string.Equals(stats.RetrievalDiagnostics.Status, "available", StringComparison.Ordinal)
+            && stats.RetrievalDiagnostics.Run1 is not null
+            && stats.RetrievalDiagnostics.Run2 is not null
+            && stats.RetrievalDiagnostics.Delta is not null)
+        {
+            screenLogger.Information("retrieval_diagnostics_k={K}", stats.RetrievalDiagnostics.K ?? 0);
+            screenLogger.Information("run1_top_k_documents={TopKDocuments}", string.Join(",", stats.RetrievalDiagnostics.Run1.TopKDocuments));
+            screenLogger.Information("run1_hit_at_k={HitAtK}", stats.RetrievalDiagnostics.Run1.HitAtK);
+            screenLogger.Information("run1_recall_at_k={RecallAtK:0.###}", stats.RetrievalDiagnostics.Run1.RecallAtK);
+            screenLogger.Information("run1_mrr={Mrr:0.###}", stats.RetrievalDiagnostics.Run1.Mrr);
+            screenLogger.Information("run1_ndcg_at_k={NdcgAtK:0.###}", stats.RetrievalDiagnostics.Run1.NdcgAtK);
+
+            screenLogger.Information("run2_top_k_documents={TopKDocuments}", string.Join(",", stats.RetrievalDiagnostics.Run2.TopKDocuments));
+            screenLogger.Information("run2_hit_at_k={HitAtK}", stats.RetrievalDiagnostics.Run2.HitAtK);
+            screenLogger.Information("run2_recall_at_k={RecallAtK:0.###}", stats.RetrievalDiagnostics.Run2.RecallAtK);
+            screenLogger.Information("run2_mrr={Mrr:0.###}", stats.RetrievalDiagnostics.Run2.Mrr);
+            screenLogger.Information("run2_ndcg_at_k={NdcgAtK:0.###}", stats.RetrievalDiagnostics.Run2.NdcgAtK);
+
+            screenLogger.Information("retrieval_recall_delta={RecallDelta:0.###}", stats.RetrievalDiagnostics.Delta.RecallDelta);
+            screenLogger.Information("retrieval_mrr_delta={MrrDelta:0.###}", stats.RetrievalDiagnostics.Delta.MrrDelta);
+            screenLogger.Information("retrieval_ndcg_delta={NdcgDelta:0.###}", stats.RetrievalDiagnostics.Delta.NdcgDelta);
+            screenLogger.Information("newly_retrieved_relevant_docs={NewDocs}", string.Join(",", stats.RetrievalDiagnostics.Delta.NewlyRetrievedRelevantDocs));
+        }
+        else if (!string.IsNullOrWhiteSpace(stats.RetrievalDiagnostics.Reason))
+        {
+            screenLogger.Information("retrieval_diagnostics_reason={Reason}", stats.RetrievalDiagnostics.Reason);
+        }
+
         return 0;
     }
 

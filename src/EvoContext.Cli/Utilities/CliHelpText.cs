@@ -17,7 +17,7 @@ Commands:
   run4    Run Phase 4 evaluation and scoring
   run5    Run Phase 5 adaptive memory (Run 1 + Run 2)
   replay  Replay a run
-  stats   Show run stats
+  stats   Show run stats and retrieval diagnostics
   config  Show resolved configuration (secrets masked)
 
 Options for ingest:
@@ -56,5 +56,6 @@ Options for replay:
 
 Options for stats:
   --scenario <id>   Scenario identifier (required)
+  --k <n>           Optional retrieval diagnostics top-K override
 """;
 }

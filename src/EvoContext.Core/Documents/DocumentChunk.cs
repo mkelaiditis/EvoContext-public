@@ -9,7 +9,9 @@ public sealed record DocumentChunk(
     int StartChar,
     int EndChar,
     string Text,
-    IReadOnlyDictionary<string, object> Metadata)
+    IReadOnlyDictionary<string, object> Metadata,
+    string? DocumentTitle = null,
+    string? Section = null)
 {
     public int CharLength => Text.Length;
 }
