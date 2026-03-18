@@ -64,17 +64,43 @@ Validation gates block pipeline changes: Gate A verifies retrieval precision; Ga
 
 ---
 
-## How to Run the Demo
+## Quick Start — Deterministic Replay (Recommended)
 
-Two options are available.
+Replay is the recommended evaluation path. It reads pre-recorded trace artifacts and re-renders the full demo output deterministically. No API keys, no external services, no variability.
 
-**Replay** (no API keys required)
-Runs the demo from a pre-recorded trace artifact. No external services needed.
+Run all commands from the repo root.
 
-**Live run** (OpenAI + Qdrant required)
-Runs the full adaptive pipeline against external services and produces a fresh trace.
+**bash / Git Bash:**
 
-For both methods, follow the [Runtime Guide](docs/runtime-guide.md).
+```bash
+mkdir -p artifacts/traces/policy_refund_v1 artifacts/traces/runbook_502_v1
+cp docs/samples/policy_refund_v1_20260316T215650Z_c39f.json artifacts/traces/policy_refund_v1/
+cp docs/samples/runbook_502_v1_20260316T215710Z_a40c.json artifacts/traces/runbook_502_v1/
+dotnet run --project src/EvoContext.Demo -- replay --run-id policy_refund_v1_20260316T215650Z_c39f
+dotnet run --project src/EvoContext.Demo -- replay --run-id runbook_502_v1_20260316T215710Z_a40c
+```
+
+**PowerShell:**
+
+```powershell
+New-Item -ItemType Directory -Force -Path artifacts\traces\policy_refund_v1, artifacts\traces\runbook_502_v1 | Out-Null
+Copy-Item docs\samples\policy_refund_v1_20260316T215650Z_c39f.json artifacts\traces\policy_refund_v1\
+Copy-Item docs\samples\runbook_502_v1_20260316T215710Z_a40c.json artifacts\traces\runbook_502_v1\
+dotnet run --project src/EvoContext.Demo -- replay --run-id policy_refund_v1_20260316T215650Z_c39f
+dotnet run --project src/EvoContext.Demo -- replay --run-id runbook_502_v1_20260316T215710Z_a40c
+```
+
+Expected outcome: Run 2 score higher than Run 1, recovered fact labels listed, score improvement shown.
+
+For full output walkthrough, see the [Runtime Guide](docs/runtime-guide.md).
+
+---
+
+## Optional — Live Execution (Requires API Keys)
+
+> **Results may vary.** Live runs call OpenAI for embeddings and generation. Embedding output is not perfectly deterministic across runs, which means Run 2 improvement is not guaranteed on every fresh embed. Use replay for reproducible evaluation.
+
+Live execution requires an OpenAI API key and a running Qdrant instance. Follow the [Runtime Guide](docs/runtime-guide.md) sections A through D.
 
 ---
 

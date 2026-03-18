@@ -1,5 +1,8 @@
 # Runtime Guide
 
+> **Use replay mode for evaluation. Live execution is optional and not required.**
+> Replay produces deterministic, reproducible results. Live runs require API keys and improvement is not guaranteed due to embedding variability. Skip to [Section E](#e-offline-replay-no-api-keys-required) to run replay now.
+
 This guide describes how to observe EvoContext's behavior end to end. It covers both the live mode (OpenAI + Qdrant required) and offline replay mode (no external services required).
 
 EvoContext runs the same query twice. Run 1 uses similarity-based retrieval. Run 2 uses evaluation feedback to expand retrieval. The goal of this walkthrough is to show how the system detects missing information and improves the answer in the second run.
@@ -22,13 +25,13 @@ If you see these five things, the adaptive loop worked as designed.
 
 ## Two Ways to Evaluate
 
-| Mode | What it does | Requirements |
-|---|---|---|
-| **Live run** | Calls OpenAI and Qdrant in real time, produces a fresh trace | OpenAI API key, Qdrant instance, .NET 10 SDK |
-| **Offline replay** | Reads a pre-recorded trace from disk and re-renders it | .NET 10 SDK only |
+| Mode | What it does | Requirements | Recommended? |
+|---|---|---|---|
+| **Offline replay** | Reads a pre-recorded trace from disk and re-renders it | .NET 10 SDK only | **Yes — start here** |
+| **Live run** | Calls OpenAI and Qdrant in real time, produces a fresh trace | OpenAI API key, Qdrant instance, .NET 10 SDK | Optional |
 
-**If you want to see the system run live, follow sections A through D.**
-**If you only want to observe the output and verify the logic, skip to section E.**
+**For evaluation: skip to [Section E — Offline Replay](#e-offline-replay-no-api-keys-required).**
+**For live execution with your own API keys: follow sections A through D.**
 
 ---
 

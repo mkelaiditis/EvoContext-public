@@ -1,5 +1,8 @@
 # Operator Guide
 
+> **Use replay mode for evaluation. Live execution is optional and not required.**
+> Replay produces deterministic, reproducible results. Live runs require API keys and Run 2 improvement is not guaranteed due to embedding variability. Jump to [Step 3 — Replay](#step-3--replay-without-external-resources) to start immediately.
+
 Commands require only .NET 10 SDK — no installation step needed beyond cloning the repository.
 
 ## Two hosts
@@ -46,6 +49,10 @@ export QDRANT_API_KEY="<your-qdrant-api-key>"
 Both hosts pick these up automatically via the .NET configuration API. No per-project setup needed.
 
 For full configuration behavior and precedence, see [docs/reference/configuration.md](reference/configuration.md).
+
+## Optional — Live Execution Steps
+
+> The following steps (0 through 2) require an OpenAI API key and a running Qdrant instance. Results may vary between runs due to embedding variability. **Skip to Step 3 for deterministic replay.**
 
 ## Step 0 — Dry-run document preview (optional)
 
