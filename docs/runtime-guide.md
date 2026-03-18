@@ -1,6 +1,6 @@
 # Runtime Guide
 
-This guide is for a judge who wants to observe EvoContext's behavior end to end. It covers both the live mode (OpenAI + Qdrant required) and offline replay mode (no external services required).
+This guide describes how to observe EvoContext's behavior end to end. It covers both the live mode (OpenAI + Qdrant required) and offline replay mode (no external services required).
 
 EvoContext runs the same query twice. Run 1 uses similarity-based retrieval. Run 2 uses evaluation feedback to expand retrieval. The goal of this walkthrough is to show how the system detects missing information and improves the answer in the second run.
 
@@ -42,6 +42,8 @@ Qdrant can be started locally with Docker:
 docker run -p 6333:6333 qdrant/qdrant
 ```
 
+Alternatively, you can use a free-tier cluster on [Qdrant Cloud](https://cloud.qdrant.io). Create a cluster, then use the endpoint URL provided by the Qdrant Cloud UI in place of `http://localhost:6333` when setting `QDRANT_URL`.
+
 ---
 
 ## A. Environment Setup (live mode only)
@@ -49,15 +51,15 @@ docker run -p 6333:6333 qdrant/qdrant
 **bash / Git Bash:**
 ```bash
 export OPENAI_API_KEY="sk-..."
-export QDRANT_URL="http://localhost:6333"
-export QDRANT_API_KEY=""
+export QDRANT_URL="https://<your-cluster>.qdrant.io"   # or http://localhost:6333 for Docker
+export QDRANT_API_KEY="<your-api-key>"                 # leave empty for local Docker
 ```
 
 **PowerShell:**
 ```powershell
 $env:OPENAI_API_KEY = "sk-..."
-$env:QDRANT_URL    = "http://localhost:6333"
-$env:QDRANT_API_KEY = ""
+$env:QDRANT_URL     = "https://<your-cluster>.qdrant.io"   # or http://localhost:6333 for Docker
+$env:QDRANT_API_KEY = "<your-api-key>"                     # leave empty for local Docker
 ```
 
 To verify configuration is resolved correctly:
