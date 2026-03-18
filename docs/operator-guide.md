@@ -111,49 +111,36 @@ Output uses raw evaluator codes and structured key/value fields. Use this for de
 
 Replay reads a stored trace artifact from disk and re-renders it. No OpenAI or Qdrant connection is required.
 
-Sample artifacts for both scenarios are included in `docs/samples/`:
+Run all commands from the repo root. Sample artifacts for both scenarios are included in `docs/samples/`:
 
 | File | Scenario | Run mode | Score Run 1 | Score Run 2 | Delta |
 |---|---|---|---|---|---|
 | `policy_refund_v1_20260316T215650Z_c39f.json` | Policy refund | run2 | 60 | 90 | +30 |
 | `runbook_502_v1_20260316T215710Z_a40c.json` | Runbook 502 | run2 | 54 | 90 | +36 |
 
-To replay a sample, first copy it to the expected artifacts location:
-
 **PowerShell:**
 
 ```powershell
-# Policy refund
-Copy-Item docs\samples\policy_refund_v1_20260316T215650Z_c39f.json `
-  -Destination artifacts\traces\policy_refund_v1\ -Force
-
-# Runbook 502
-Copy-Item docs\samples\runbook_502_v1_20260316T215710Z_a40c.json `
-  -Destination artifacts\traces\runbook_502_v1\ -Force
+New-Item -ItemType Directory -Force -Path artifacts\traces\policy_refund_v1, artifacts\traces\runbook_502_v1 | Out-Null
+Copy-Item docs\samples\policy_refund_v1_20260316T215650Z_c39f.json -Destination artifacts\traces\policy_refund_v1\ -Force
+Copy-Item docs\samples\runbook_502_v1_20260316T215710Z_a40c.json -Destination artifacts\traces\runbook_502_v1\ -Force
+dotnet run --project src/EvoContext.Demo -- replay --run-id policy_refund_v1_20260316T215650Z_c39f
+dotnet run --project src/EvoContext.Demo -- replay --run-id runbook_502_v1_20260316T215710Z_a40c
 ```
 
 **bash / Git Bash:**
 
 ```bash
-# Policy refund
-cp docs/samples/policy_refund_v1_20260316T215650Z_c39f.json \
-  artifacts/traces/policy_refund_v1/
-
-# Runbook 502
-cp docs/samples/runbook_502_v1_20260316T215710Z_a40c.json \
-  artifacts/traces/runbook_502_v1/
+mkdir -p artifacts/traces/policy_refund_v1 artifacts/traces/runbook_502_v1
+cp docs/samples/policy_refund_v1_20260316T215650Z_c39f.json artifacts/traces/policy_refund_v1/
+cp docs/samples/runbook_502_v1_20260316T215710Z_a40c.json artifacts/traces/runbook_502_v1/
+dotnet run --project src/EvoContext.Demo -- replay --run-id policy_refund_v1_20260316T215650Z_c39f
+dotnet run --project src/EvoContext.Demo -- replay --run-id runbook_502_v1_20260316T215710Z_a40c
 ```
 
-Then replay using the Demo host for rich output, or the CLI for operator output:
+For CLI operator output instead of the Demo host:
 
 ```bash
-# Policy refund — Demo (rich)
-dotnet run --project src/EvoContext.Demo -- replay --run-id policy_refund_v1_20260316T215650Z_c39f
-
-# Runbook 502 — Demo (rich)
-dotnet run --project src/EvoContext.Demo -- replay --run-id runbook_502_v1_20260316T215710Z_a40c
-
-# CLI operator output
 dotnet run --project src/EvoContext.Cli -- replay --run-id runbook_502_v1_20260316T215710Z_a40c
 ```
 

@@ -108,10 +108,7 @@ dotnet run --project src/EvoContext.Cli -- embed --scenario runbook_502_v1
 ### C.1 Policy Refund scenario
 
 ```bash
-dotnet run --project src/EvoContext.Demo -- run \
-  --scenario policy_refund_v1 \
-  --query "What is the refund policy for annual subscriptions?" \
-  --mode run2
+dotnet run --project src/EvoContext.Demo -- run --scenario policy_refund_v1 --query "What is the refund policy for annual subscriptions?" --mode run2
 ```
 
 #### Step-by-step output walkthrough
@@ -209,10 +206,7 @@ The expanded context surfaced the missing clauses. The model now has evidence fo
 ### C.2 Runbook 502 scenario
 
 ```bash
-dotnet run --project src/EvoContext.Demo -- run \
-  --scenario runbook_502_v1 \
-  --query "The service returns 502. What do I do?" \
-  --mode run2
+dotnet run --project src/EvoContext.Demo -- run --scenario runbook_502_v1 --query "The service returns 502. What do I do?" --mode run2
 ```
 
 The runbook evaluator checks **step coverage**, not fact presence. A score is deducted for each required diagnostic step that is absent from the answer.
@@ -350,26 +344,26 @@ This file captures the state before Run 2. It exists so you can verify what Run 
 
 Replay reads a stored trace from disk and re-renders the full demo output. It does not call OpenAI or Qdrant. Pre-recorded traces for both scenarios are included in `docs/samples/`.
 
-**Step 1 — Copy samples to the expected location:**
+> **Run all commands from the repo root.**
+
+**bash / Git Bash:**
 
 ```bash
 mkdir -p artifacts/traces/policy_refund_v1 artifacts/traces/runbook_502_v1
-
-cp docs/samples/policy_refund_v1_20260316T215650Z_c39f.json \
-   artifacts/traces/policy_refund_v1/
-
-cp docs/samples/runbook_502_v1_20260316T215710Z_a40c.json \
-   artifacts/traces/runbook_502_v1/
+cp docs/samples/policy_refund_v1_20260316T215650Z_c39f.json artifacts/traces/policy_refund_v1/
+cp docs/samples/runbook_502_v1_20260316T215710Z_a40c.json artifacts/traces/runbook_502_v1/
+dotnet run --project src/EvoContext.Demo -- replay --run-id policy_refund_v1_20260316T215650Z_c39f
+dotnet run --project src/EvoContext.Demo -- replay --run-id runbook_502_v1_20260316T215710Z_a40c
 ```
 
-**Step 2 — Replay:**
+**PowerShell:**
 
-```bash
-dotnet run --project src/EvoContext.Demo -- \
-  replay --run-id policy_refund_v1_20260316T215650Z_c39f
-
-dotnet run --project src/EvoContext.Demo -- \
-  replay --run-id runbook_502_v1_20260316T215710Z_a40c
+```powershell
+New-Item -ItemType Directory -Force -Path artifacts\traces\policy_refund_v1, artifacts\traces\runbook_502_v1 | Out-Null
+Copy-Item docs\samples\policy_refund_v1_20260316T215650Z_c39f.json artifacts\traces\policy_refund_v1\
+Copy-Item docs\samples\runbook_502_v1_20260316T215710Z_a40c.json artifacts\traces\runbook_502_v1\
+dotnet run --project src/EvoContext.Demo -- replay --run-id policy_refund_v1_20260316T215650Z_c39f
+dotnet run --project src/EvoContext.Demo -- replay --run-id runbook_502_v1_20260316T215710Z_a40c
 ```
 
 The output is identical to a live run. The same summary box, the same scores, the same recovered/missing items.
