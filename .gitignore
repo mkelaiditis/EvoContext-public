@@ -38,6 +38,9 @@ coverage/
 traces/
 !traces/.gitkeep
 
+# Runtime artifacts — generated state, not version-controlled inputs
+artifacts/usefulness_memory*.json
+
 # Local config overrides
 appsettings.*.local.json
 

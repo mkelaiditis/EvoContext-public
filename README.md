@@ -126,6 +126,8 @@ validation/                    Gate A (retrieval precision) and Gate B (hallucin
 tests/                         Unit and regression tests
 ```
 
+The `artifacts/` directory contains generated runtime outputs (traces, memory files, probe results). It is not part of the controlled baseline and is not required for replay evaluation.
+
 ---
 
 ## What This Is Not
